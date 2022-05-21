@@ -1,5 +1,5 @@
 # Modulo 6
-## Trabajo en clases
+## Trabajo de actividades
 Catalogo-JPA [Referenciado desde](https://github.com/stgoneira/desarrollo-aplicaciones-spring/blob/main/pizarra-spring.md)
 
 - Catálogo de Productos con entidades: Producto y Categoría (JPA) 
