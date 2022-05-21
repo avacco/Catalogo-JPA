@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Form categoria</title>
+</head>
+<body>
+<h1> FORM CATEGORIA</h1>
+
+	<form data-th-action="@{/categoria/procesar}" data-th-object="${categoria}" method="POST">
+		<p>
+			Nombre: <input type="text" data-th-field="*{nombre}" />
+			<span data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}" style="color: red;"></span>
+		</p>
+				
+		<input type="hidden" data-th-field="*{id}" />
+		<button type="submit">Guardar</button>
+	</form>
+
+</body>
+</html>

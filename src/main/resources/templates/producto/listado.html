@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Listado productos</title>
+</head>
+<body>
+<h1> LISTADO PRODUCTOS</h1>
+	<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Imagen</th>
+			<th>Descripcion</th>
+			<th>Categoria</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  data-th-each="producto : ${productos}">
+			<th data-th-text="${producto.id}"></th>
+			<th data-th-text="${producto.nombre}"></th>
+			<th>NO IMPLEMENTADO</th>
+			<th data-th-text="${producto.descripcion}"></th>
+			<th data-th-text="${producto.categoria.nombre}"></th>
+			
+			<td>
+				<a data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
+				<a data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</body>
+</html>

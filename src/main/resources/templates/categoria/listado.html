@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>listado categoria</title>
+</head>
+<body>
+<h1> LISTADO CATEGORIA</h1>
+
+	<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  data-th-each="categoria : ${categorias}">
+			<th data-th-text="${categoria.id}"></th>
+			<th data-th-text="${categoria.nombre}"></th>
+			<td>
+				<a data-th-href="@{/categoria/editar/{categoriaId}(categoriaId=${categoria.id})}">Editar</a>
+				<a data-th-href="@{/categoria/eliminar(id=${categoria.id})}">Eliminar</a>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	
+</body>
+</html>
