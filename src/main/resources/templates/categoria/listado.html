@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head data-th-replace="parts/head :: cabecera(~{::title}, _)">
 <meta charset="UTF-8">
-<title>listado categoria</title>
+<title>Listado categoria</title>
 </head>
-<body>
-<h1> LISTADO CATEGORIA</h1>
+<body class="body-light">
+<main class="container">
+<h1 class="border-bottom pb-2 mb-0" align="center"> Categorias</h1>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+  	<table id="sortTable" class="table">
 
-	<table>
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -26,6 +28,13 @@
 		</tr>
 	</tbody>
 	</table>
-	
+</div>
+
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<a class="btn btn-primary" data-th-href="@{/}">Volver</a>
+</div>
+</main>
+<div data-th-replace="parts/scripts :: scripts"></div>
+<div data-th-replace="parts/tablesort :: tablesort"></div>
 </body>
 </html>

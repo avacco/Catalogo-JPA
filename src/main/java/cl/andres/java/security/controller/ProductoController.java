@@ -54,8 +54,12 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/procesar")
-	public String procesar(@Valid Producto producto, BindingResult validacion, @RequestParam("image") MultipartFile multipartFile) throws IOException {
-		if(validacion.hasErrors()) return "producto/form";
+	public String procesar(@Valid Producto producto, BindingResult validacion, @RequestParam("image") MultipartFile multipartFile, Model modelo) throws IOException {
+		if(validacion.hasErrors()) {
+			List<Categoria> categorias = categoriaRepository.findAll();
+			modelo.addAttribute("categorias",categorias);
+			return "producto/form";
+		}
 		
 		// limpia la ruta del archivo subido
 		String nombreArchivo = StringUtils.cleanPath(multipartFile.getOriginalFilename());
@@ -63,9 +67,9 @@ public class ProductoController {
 		
 		producto.setImagen(nombreArchivo);
 		
-		productoRepository.saveAndFlush(producto);
 		String dirSubida = "imagenes";
 		FileUploadUtils.saveFile(dirSubida, (producto.getId()+nombreArchivo), multipartFile);
+		productoRepository.saveAndFlush(producto);
 		
 		return "redirect:/producto/listado";
 	}

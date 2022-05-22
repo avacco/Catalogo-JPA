@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,12 +22,20 @@ public class FileUploadUtils {
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
-         
-        try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {        
-            throw new IOException("Error al guardar archivo: " + fileName, ioe);
-        }      
+        
+        final List<String> tiposPermitidos = Arrays.asList("image/png", "image/jpeg");
+        
+        
+        
+        if(tiposPermitidos.contains(multipartFile.getContentType())) {   
+	        try (InputStream inputStream = multipartFile.getInputStream()) {
+	            Path filePath = uploadPath.resolve(fileName);
+	            Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+	        } catch (IOException ioe) {        
+	            throw new IOException("Error al guardar archivo: " + fileName, ioe);
+	        }     
+        } else {
+        	throw new IOException("Tipo de archivo invalido: " + fileName);
+        }
     }
 }

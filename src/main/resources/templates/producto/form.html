@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head data-th-replace="parts/head :: cabecera(~{::title}, _)">
 <meta charset="UTF-8">
-<title>Form producto</title>
+<title>Agregar producto</title>
 </head>
-<body>
-<h1> FORM PRODUCTO</h1>
-	<form data-th-action="@{/producto/procesar}" data-th-object="${producto}" enctype="multipart/form-data" method="POST">
-		<p>
-			Nombre: <input type="text" data-th-field="*{nombre}" />
-			<span data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}" style="color: red;"></span>
-		</p>
-		
-		<p>
-			Descripcion: <input type="text" data-th-field="*{descripcion}" />
-			<span data-th-if="${#fields.hasErrors('descripcion')}" data-th-errors="*{descripcion}" style="color: red;"></span>
-		</p>
-		
-		Imagen:
-		<input type="file" name="image" accept="image/*" />
-		
-			Categoria:
-		<select data-th-field="*{categoria}">
-			<option data-th-each="categoria : ${categorias}" 
-					data-th-value="${categoria.id}" 
-					data-th-text="${categoria.nombre}" />
-		</select>
-				
-		<input type="hidden" data-th-field="*{id}" />
-		<button type="submit">Guardar</button>
-	</form>
+<body class="body-light">
+<main class="container">
+	<br/>
+	<h1 class="border-bottom pb-2 mb-0"> Agregar Producto</h1>
+	<div class="my-3 p-3 bg-body rounded shadow-sm">
+		<form data-th-action="@{/producto/procesar}" data-th-object="${producto}" enctype="multipart/form-data" method="POST">
+			<label class="form-label"> Nombre:</label> 
+				<input class="form-control" type="text" data-th-field="*{nombre}" />
+				<span data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}" style="color: red;"></span>		
+			<label class="form-label"> Descripcion: </label> 
+				<input class="form-control" type="text" data-th-field="*{descripcion}" />
+				<span data-th-if="${#fields.hasErrors('descripcion')}" data-th-errors="*{descripcion}" style="color: red;"></span>
+			<label class="form-label">Imagen:</label>
+				<input class="form-control" type="file" id="image-file" name="image" accept="image/jpg, image/jpeg" />
+			<label class="form-label">Categoria:</label>
+				<select class="form-control" data-th-field="*{categoria}">
+					<option data-th-each="categoria : ${categorias}" 
+							data-th-value="${categoria.id}" 
+							data-th-text="${categoria.nombre}" />
+				</select>
+				<br/>
+					
+			<input type="hidden" data-th-field="*{id}" />
+			<button class="btn btn-primary" type="submit">Guardar</button> 	<a class="btn btn-danger" data-th-href="@{/}">Volver</a>
+		</form>
+	</div>
+
+</main>
 </body>
 </html>

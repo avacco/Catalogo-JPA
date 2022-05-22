@@ -25,7 +25,9 @@ public class CategoriaController {
 	
 	
 	@GetMapping("/nuevo")
-	public String nuevo(Categoria categoria) {
+	public String nuevo(Categoria categoria, Model modelo) {
+		List<Categoria> categorias = categoriaRepository.findAll();
+		modelo.addAttribute("categorias",categorias);
 		return "categoria/form";
 	}
 	
