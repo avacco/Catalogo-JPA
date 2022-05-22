@@ -17,8 +17,9 @@
 			    <p class="card-text" data-th-text="${producto.descripcion}"></p>
 			    <a class="btn btn-primary" data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
 			    <a class="btn btn-primary" data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+				<p class="text-muted text-end lh-1" data-th-text=" 'ID: ' + ${producto.id}"></p>
 			  </div>
-			</div>
+			</div><br/>
 		</div>
 	</div>
 </div>

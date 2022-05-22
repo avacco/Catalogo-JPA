@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1> FORM PRODUCTO</h1>
-	<form data-th-action="@{/producto/procesar}" data-th-object="${producto}" method="POST">
+	<form data-th-action="@{/producto/procesar}" data-th-object="${producto}" enctype="multipart/form-data" method="POST">
 		<p>
 			Nombre: <input type="text" data-th-field="*{nombre}" />
 			<span data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}" style="color: red;"></span>
@@ -16,6 +16,9 @@
 			Descripcion: <input type="text" data-th-field="*{descripcion}" />
 			<span data-th-if="${#fields.hasErrors('descripcion')}" data-th-errors="*{descripcion}" style="color: red;"></span>
 		</p>
+		
+		Imagen:
+		<input type="file" name="image" accept="image/*" />
 		
 			Categoria:
 		<select data-th-field="*{categoria}">
