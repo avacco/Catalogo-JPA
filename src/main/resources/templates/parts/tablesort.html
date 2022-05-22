@@ -1,0 +1,22 @@
+<div data-th-fragment="tablesort" data-th-remove="tag">
+	
+	<!-- Incluye jquery y datatables para manejo sencillo de tablas  -->
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script>
+$('#sortTable').DataTable({
+    language: {
+        search: "Buscar:",
+        info: "Mostrando registros del _START_ a _END_ de un total de _TOTAL_ registros",
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        paginate: {
+            next: "Siguiente",
+            previous: "Anterior"
+        }
+    }
+});
+</script>
+
+</div>

@@ -7,23 +7,75 @@
 <body class="body-light">
 <main class="container">
 <h1 class="border-bottom pb-2 mb-0" align="center"> Productos</h1>
-<div class="my-3 p-3 bg-body rounded shadow-sm">
-	<div class="row">
-		<div class="col-4" data-th-each="producto : ${productos}">
-			<div class="card">
-			  <img data-th-src="${producto.dirImagen}" class="card-img-top" height="300">
-			  <div class="card-body">
-			    <h5 class="card-title" data-th-text="${producto.nombre}"></h5>
-			    <p class="card-text" data-th-text="${producto.descripcion}"></p>
-			    <a class="btn btn-primary" data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
-			    <a class="btn btn-primary" data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
-				<p class="text-muted text-end lh-1" data-th-text=" 'ID: ' + ${producto.id}"></p>
-			  </div>
-			</div><br/>
+
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Vista de grilla</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Vista de lista</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  
+	<div class="my-3 p-3 bg-body rounded shadow-sm">
+		<div class="row">
+			<div class="col-4" data-th-each="producto : ${productos}">
+				<div class="card-header border"><p class="card-text" data-th-text="${producto.categoria.nombre}"></p></div>
+				<div class="card text-dark bg-light mb-3">
+				  <img data-th-src="${producto.dirImagen}" class="card-img-middle" height="300" style="margin:30px;">
+				  <div class="card-body">
+				    <h5 class="card-title" data-th-text="${producto.nombre}"></h5>
+				    <p class="card-text" data-th-text="${producto.descripcion}"></p>
+				    <a class="btn btn-primary" data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
+				    <a class="btn btn-primary" data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+					<p class="text-muted text-end lh-1" data-th-text=" 'ID: ' + ${producto.id}"></p>
+				  </div>
+				</div><br/>
+			</div>
 		</div>
 	</div>
+  
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  	<div class="my-3 p-3 bg-body rounded shadow-sm">
+	  	<table id="sortTable" class="table">
+		<thead>
+			<tr>
+				<th style="cursor: pointer;">ID</th>
+				<th>Imagen</th>
+				<th style="cursor: pointer;">Categoria</th>
+				<th style="cursor: pointer;">Nombre</th>
+				<th style="cursor: pointer;">Descripcion</th>
+				<th style="cursor: pointer;">Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  data-th-each="producto : ${productos}">
+				<td data-th-text="${producto.id}"></td>
+				<td> <img data-th-src="${producto.dirImagen}" class="card-img-middle" height="50px" width="50px" style="margin:5px;"></td>
+				<td data-th-text="${producto.categoria.nombre}"></td>
+				<td data-th-text="${producto.nombre}"></td>
+				<td data-th-text="${producto.descripcion}"></td>
+				<td>
+				    <a data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
+				   	<a data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+  	</div>
+  </div>
 </div>
+
+
+
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<a class="btn btn-primary" data-th-href="@{/}">Volver</a>
+</div>
+
 <div data-th-replace="parts/scripts :: scripts"></div>
+<div data-th-replace="parts/tablesort :: tablesort"></div>
 </main>
 </body>
 </html>
