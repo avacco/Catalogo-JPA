@@ -1,5 +1,6 @@
 package cl.andres.java.security.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,11 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import cl.andres.java.security.model.Categoria;
 import cl.andres.java.security.model.Producto;
@@ -50,10 +54,19 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/procesar")
-	public String procesar(@Valid Producto producto, BindingResult validacion) {
+	public String procesar(@Valid Producto producto, BindingResult validacion, @RequestParam("image") MultipartFile multipartFile) throws IOException {
 		if(validacion.hasErrors()) return "producto/form";
 		
+		// limpia la ruta del archivo subido
+		String nombreArchivo = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		nombreArchivo = StringUtils.trimAllWhitespace(nombreArchivo); // quita espacios
+		
+		producto.setImagen(nombreArchivo);
+		
 		productoRepository.saveAndFlush(producto);
+		String dirSubida = "imagenes";
+		FileUploadUtils.saveFile(dirSubida, (producto.getId()+nombreArchivo), multipartFile);
+		
 		return "redirect:/producto/listado";
 	}
 	

@@ -1,5 +1,7 @@
 package cl.andres.java.security.model;
 
+import java.beans.Transient;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,4 +33,12 @@ public class Producto {
 	private String descripcion;
 	@ManyToOne
 	private Categoria categoria;
+	
+	
+	@Transient
+	public String getDirImagen() {
+		if(imagen == null || id == null) return null;
+		
+		return "/imagenes/" + id + imagen ;
+	}
 }
