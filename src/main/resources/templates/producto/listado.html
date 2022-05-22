@@ -1,36 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head data-th-replace="parts/head :: cabecera(~{::title}, _)">
 <meta charset="UTF-8">
 <title>Listado productos</title>
 </head>
-<body>
-<h1> LISTADO PRODUCTOS</h1>
-	<table>
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Imagen</th>
-			<th>Descripcion</th>
-			<th>Categoria</th>
-			<th>Acciones</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr  data-th-each="producto : ${productos}">
-			<th data-th-text="${producto.id}"></th>
-			<th data-th-text="${producto.nombre}"></th>
-			<th>NO IMPLEMENTADO</th>
-			<th data-th-text="${producto.descripcion}"></th>
-			<th data-th-text="${producto.categoria.nombre}"></th>
-			
-			<td>
-				<a data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
-				<a data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
-			</td>
-		</tr>
-	</tbody>
-	</table>
+<body class="body-light">
+<main class="container">
+<h1 class="border-bottom pb-2 mb-0" align="center"> Productos</h1>
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+	<div class="row">
+		<div class="col-4" data-th-each="producto : ${productos}">
+			<div class="card">
+			  <img data-th-src="${producto.dirImagen}" class="card-img-top" height="300">
+			  <div class="card-body">
+			    <h5 class="card-title" data-th-text="${producto.nombre}"></h5>
+			    <p class="card-text" data-th-text="${producto.descripcion}"></p>
+			    <a class="btn btn-primary" data-th-href="@{/producto/editar/{id}(id=${producto.id})}">Editar</a>
+			    <a class="btn btn-primary" data-th-href="@{/producto/eliminar/{id}(id=${producto.id})}">Eliminar</a>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div data-th-replace="parts/scripts :: scripts"></div>
+</main>
 </body>
 </html>
