@@ -68,8 +68,9 @@ public class ProductoController {
 		producto.setImagen(nombreArchivo);
 		
 		String dirSubida = "imagenes";
-		FileUploadUtils.saveFile(dirSubida, (producto.getId()+nombreArchivo), multipartFile);
-		productoRepository.saveAndFlush(producto);
+		Producto productoProcesado = productoRepository.saveAndFlush(producto);
+		FileUploadUtils.saveFile(dirSubida, (productoProcesado.getId()+nombreArchivo), multipartFile);
+		
 		
 		return "redirect:/producto/listado";
 	}

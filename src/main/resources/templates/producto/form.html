@@ -17,7 +17,7 @@
 				<input class="form-control" type="text" data-th-field="*{descripcion}" />
 				<span data-th-if="${#fields.hasErrors('descripcion')}" data-th-errors="*{descripcion}" style="color: red;"></span>
 			<label class="form-label">Imagen:</label>
-				<input class="form-control" type="file" id="image-file" name="image" accept="image/jpg, image/jpeg" />
+				<input class="form-control" type="file" id="image-file" name="image" accept="image/jpeg, image/png" />
 			<label class="form-label">Categoria:</label>
 				<select class="form-control" data-th-field="*{categoria}">
 					<option data-th-each="categoria : ${categorias}" 
