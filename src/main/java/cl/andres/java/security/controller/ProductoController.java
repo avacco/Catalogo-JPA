@@ -48,8 +48,13 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable(name = "id") Long id) {
-		productoRepository.deleteById(id);
+	public String eliminar(@PathVariable(name = "id") Long id) throws IOException {
+		// Utilizando el id requerido, hace una busqueda y retorna el nombre del archivo de imagen a eliminar
+		String dir = productoRepository.findImagenById(id);
+		// Luego lo pasa al metodo deleteFile junto a la ruta y la id del archivo
+		FileUploadUtils.deleteFile("imagenes/"+id.toString()+dir);
+		// Hecho esto, elimina el registro por completo y redirecciona al listado
+		productoRepository.deleteById(id);		
 		return "redirect:/producto/listado";
 	}
 	
