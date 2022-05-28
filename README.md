@@ -1,6 +1,6 @@
 # Modulo 6
 ## Trabajo de actividades
-Catalogo-JPA [Referenciado desde](https://github.com/stgoneira/desarrollo-aplicaciones-spring/blob/main/pizarra-spring.md)
+Catalogo-JPA [Referenciado desde aqui](https://github.com/stgoneira/desarrollo-aplicaciones-spring/blob/main/pizarra-spring.md)
 
 - Catálogo de Productos con entidades: Producto y Categoría (JPA) 
 - Atributos mínimos:
@@ -13,5 +13,4 @@ Catalogo-JPA [Referenciado desde](https://github.com/stgoneira/desarrollo-aplica
 ## Muestra
 Despliegue en [heroku](https://av-catalogo-jpa.herokuapp.com)
 ### Notas:
-* Debido a limitaciones del hosting gratuito, las imagenes que se suban no podran verse.
-* Cualquier entrada hecha a la base de datos es efimera y seran borrados despues de un tiempo.
+* Cualquier entrada hecha a la base de datos es efímera y será borrada despues de un tiempo.
