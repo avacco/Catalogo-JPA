@@ -21,7 +21,7 @@
 			<div class="col-4" data-th-each="producto : ${productos}">
 				<div class="card-header border"><p class="card-text" data-th-text="${producto.categoria.nombre}"></p></div>
 				<div class="card text-dark bg-light mb-3">
-				  <img data-th-src="${producto.dirImagen}" class="card-img-middle" height="300" style="margin:30px;">
+				  <img data-th-src="@{/producto/listado/{id}(id=${producto.id})}" class="card-img-middle" height="300" style="margin:30px;">
 				  <div class="card-body">
 				    <h5 class="card-title" data-th-text="${producto.nombre}"></h5>
 				    <p class="card-text" data-th-text="${producto.descripcion}"></p>
@@ -50,7 +50,7 @@
 		<tbody>
 			<tr  data-th-each="producto : ${productos}">
 				<td data-th-text="${producto.id}"></td>
-				<td> <img data-th-src="${producto.dirImagen}" class="card-img-middle" height="50px" width="50px" style="margin:5px;"></td>
+				<td> <img data-th-src="@{/producto/listado/{id}(id=${producto.id})}" class="card-img-middle" height="50px" width="50px" style="margin:5px;"></td>
 				<td data-th-text="${producto.categoria.nombre}"></td>
 				<td data-th-text="${producto.nombre}"></td>
 				<td data-th-text="${producto.descripcion}"></td>

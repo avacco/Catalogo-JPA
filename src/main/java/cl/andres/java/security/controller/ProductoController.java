@@ -1,14 +1,17 @@
 package cl.andres.java.security.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,35 +52,33 @@ public class ProductoController {
 	
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable(name = "id") Long id) throws IOException {
-		// Utilizando el id requerido, hace una busqueda y retorna el nombre del archivo de imagen a eliminar
-		String dir = productoRepository.findImagenById(id);
-		// Luego lo pasa al metodo deleteFile junto a la ruta y la id del archivo
-		FileUploadUtils.deleteFile("imagenes/"+id.toString()+dir);
-		// Hecho esto, elimina el registro por completo y redirecciona al listado
 		productoRepository.deleteById(id);		
 		return "redirect:/producto/listado";
 	}
 	
 	@PostMapping("/procesar")
-	public String procesar(@Valid Producto producto, BindingResult validacion, @RequestParam("image") MultipartFile multipartFile, Model modelo) throws IOException {
+	public String procesar(@Valid Producto producto, BindingResult validacion, @RequestParam("image") MultipartFile imagen, Model modelo) throws IOException {
 		if(validacion.hasErrors()) {
 			List<Categoria> categorias = categoriaRepository.findAll();
 			modelo.addAttribute("categorias",categorias);
 			return "producto/form";
 		}
-		
-		// limpia la ruta del archivo subido
-		String nombreArchivo = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		nombreArchivo = StringUtils.trimAllWhitespace(nombreArchivo); // quita espacios
-		
-		producto.setImagen(nombreArchivo);
-		
-		String dirSubida = "imagenes";
-		Producto productoProcesado = productoRepository.saveAndFlush(producto);
-		FileUploadUtils.saveFile(dirSubida, (productoProcesado.getId()+nombreArchivo), multipartFile);
-		
-		
-		return "redirect:/producto/listado";
+		if(producto.getId() == null) {
+			byte[] contenidoImagen 	= imagen.getBytes();
+			Producto agregarProducto = Producto.builder()
+										.nombre(producto.getNombre())
+										.imagen(contenidoImagen)
+										.descripcion(producto.getDescripcion())
+										.categoria(producto.getCategoria())
+										.build();
+			productoRepository.saveAndFlush(agregarProducto);
+			return "redirect:/producto/listado";
+		}else {
+			byte[] contenidoImagen 	= imagen.getBytes();
+			producto.setImagen(contenidoImagen);
+			productoRepository.saveAndFlush(producto);
+			return "redirect:/producto/listado";
+		}
 	}
 	
 	@GetMapping("/listado")
@@ -86,4 +87,20 @@ public class ProductoController {
 		modelo.addAttribute("productos",productos);
 		return "producto/listado";
 	}
+	
+	// Retorna la imagen desde la base de datos usando ResponseEntity
+		@GetMapping("listado/{id}")
+		public ResponseEntity<byte[]> muestraImagenes(@PathVariable("id") Long id) throws SQLException {
+
+			Optional<Producto> producto = productoRepository.findById(id);
+			byte[] imageBytes = null;
+			if (producto.isPresent()) {
+				imageBytes = producto.get().getImagen();
+			}
+
+			return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes);
+		}
+	
+	
+	
 }
