@@ -12,6 +12,6 @@ Catalogo-JPA [Referenciado desde](https://github.com/stgoneira/desarrollo-aplica
 
 ## Muestra
 Despliegue en [heroku](https://av-catalogo-jpa.herokuapp.com)
-Notas:
+### Notas:
 * Debido a limitaciones del hosting gratuito, las imagenes que se suban no podran verse.
 * Cualquier entrada hecha a la base de datos es efimera y seran borrados despues de un tiempo.
